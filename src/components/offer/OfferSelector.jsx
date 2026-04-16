@@ -1,8 +1,18 @@
+import { useMemo } from 'react'
+import { isOfferInLikelyRange } from '../../constants/offerRanges.js'
+import { parseOfferNumber } from '../offerFlow/offerFlowMoney.js'
 import { NegotiationTooltip } from '../product/NegotiationTooltip.jsx'
 import { CustomOfferInput } from './CustomOfferInput.jsx'
 import { OfferOrDivider } from './OfferOrDivider.jsx'
 import { PresetOfferButton } from './PresetOfferButton.jsx'
 import { getListingOfferPresets } from './offerPresets.js'
+
+function effectiveOfferAmount(offerAmount, customInput) {
+  const t = customInput.trim()
+  if (t === '') return offerAmount
+  const p = parseOfferNumber(t)
+  return p > 0 ? p : offerAmount
+}
 
 export function OfferSelector({
   offerAmount,
@@ -10,8 +20,19 @@ export function OfferSelector({
   customInput,
   onCustomInputChange,
   locale = 'en',
+  sellerLikelyRange = { min: 60, max: 70 },
 }) {
   const presets = getListingOfferPresets()
+
+  const effective = useMemo(
+    () => effectiveOfferAmount(offerAmount, customInput),
+    [offerAmount, customInput],
+  )
+
+  /** Show persistent red frame when current offer is outside likely range */
+  const outOfRange = useMemo(() => {
+    return !isOfferInLikelyRange(effective)
+  }, [effective])
 
   return (
     <section className="space-y-4">
@@ -37,8 +58,18 @@ export function OfferSelector({
         value={customInput}
         onChange={(e) => onCustomInputChange(e.target.value)}
       />
-      <div className="w-full pt-1">
-        <NegotiationTooltip locale={locale === 'ko' ? 'ko' : 'en'} />
+      <div
+        className={`w-full rounded-xl pt-1 transition-[box-shadow] duration-200 ${
+          outOfRange
+            ? 'ring-2 ring-red-500 ring-offset-2 ring-offset-white'
+            : ''
+        }`}
+      >
+        <NegotiationTooltip
+          locale={locale === 'ko' ? 'ko' : 'en'}
+          sellerLikelyMin={sellerLikelyRange.min}
+          sellerLikelyMax={sellerLikelyRange.max}
+        />
       </div>
     </section>
   )

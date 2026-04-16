@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { OfferCheckoutProvider } from './context/OfferCheckoutProvider.jsx'
 import { ScreenPicker } from './components/common/ScreenPicker.jsx'
 import { MakeOfferScreen } from './components/offer/MakeOfferScreen.jsx'
+import { MakeOfferScreenB } from './components/offer/MakeOfferScreenB.jsx'
 import { OfferDetailsPaymentScreen } from './components/offerDetails/OfferDetailsPaymentScreen.jsx'
 import { OfferDetailsSubmitScreen } from './components/offerFlow/OfferDetailsSubmitScreen.jsx'
 import { ProductListingContainer } from './components/offerFlow/ProductListingContainer.jsx'
@@ -18,6 +19,7 @@ export default function App() {
             <ProductListingContainer onBack={() => {}} onGoToOffer={() => setScreen('makeOffer')} />
           )}
           {screen === 'makeOffer' && <MakeOfferScreen />}
+          {screen === 'makeOfferB' && <MakeOfferScreenB />}
           {screen === 'shipping' && <ShippingAddressScreen onBack={() => setScreen('product')} />}
           {screen === 'offerPayment' && (
             <OfferDetailsPaymentScreen onBack={() => setScreen('product')} />

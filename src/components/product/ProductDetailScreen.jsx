@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { IMG } from '../../constants/assets.js'
 import { MobileShell } from '../common/MobileShell.jsx'
 import { StatusBar } from '../common/StatusBar.jsx'
@@ -40,6 +41,8 @@ function ProductDetailBody({ onBack }) {
 }
 
 export function ProductDetailScreen({ onBack, onOffer = () => {}, onBuy = () => {} }) {
+  const [listingCoach, setListingCoach] = useState(true)
+
   return (
     <MobileShell className="relative flex h-[100dvh] max-w-[375px] flex-col overflow-hidden bg-white">
       <div className="shrink-0 bg-white">
@@ -50,7 +53,12 @@ export function ProductDetailScreen({ onBack, onOffer = () => {}, onBuy = () => 
         <ProductDetailBody onBack={onBack} />
       </div>
 
-      <ProductFixedFooter onOffer={onOffer} onBuy={onBuy} />
+      <ProductFixedFooter
+        onOffer={onOffer}
+        onBuy={onBuy}
+        coachMode={listingCoach}
+        onDismissCoach={() => setListingCoach(false)}
+      />
     </MobileShell>
   )
 }

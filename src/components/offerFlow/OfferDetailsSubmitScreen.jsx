@@ -7,7 +7,13 @@ import { SubmissionSuccessModal } from '../modal/SubmissionSuccessModal.jsx'
 import { PrimaryBlackButton } from '../ui/PrimaryBlackButton.jsx'
 import { OfferDetailsNavHeader } from '../offerDetails/OfferDetailsNavHeader.jsx'
 import { StatusBar } from '../common/StatusBar.jsx'
-import { computeOfferTotal, formatUsd, MOCK_SHIPPING, MOCK_TAX } from './offerFlowMoney.js'
+import {
+  computeOfferTotal,
+  formatUsd,
+  LISTING_PRICE,
+  MOCK_SHIPPING,
+  MOCK_TAX,
+} from './offerFlowMoney.js'
 import { DetailLineRow } from './DetailLineRow.jsx'
 import { NetChargedBlock } from './NetChargedBlock.jsx'
 import { OfferProductStrip } from './OfferProductStrip.jsx'
@@ -19,6 +25,7 @@ export function OfferDetailsSubmitScreen({ onBack }) {
   const { offerAmount } = useOfferCheckout()
 
   const lineTotal = computeOfferTotal(offerAmount)
+  const savingsVersusListing = Math.max(0, LISTING_PRICE - offerAmount)
 
   return (
     <MobileShell className="relative min-h-[100dvh] bg-white">
@@ -43,7 +50,11 @@ export function OfferDetailsSubmitScreen({ onBack }) {
       </div>
 
       <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
-        <SubmissionSuccessModal onContinueShopping={() => setSuccessOpen(false)} />
+        <SubmissionSuccessModal
+          savingsAmount={savingsVersusListing}
+          onBrowseSeller={() => setSuccessOpen(false)}
+          onClose={() => setSuccessOpen(false)}
+        />
       </Modal>
     </MobileShell>
   )

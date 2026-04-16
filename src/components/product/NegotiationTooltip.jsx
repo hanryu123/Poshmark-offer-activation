@@ -16,8 +16,16 @@ function SpeechBubbleTail() {
 /**
  * @param {'en' | 'ko'} locale
  * @param {'listing' | 'hint'} variant — listing: 리스팅 2줄 카피; hint: Offer 입력/선택 한 줄 가이드
+ * @param {number} [sellerLikelyMin]
+ * @param {number} [sellerLikelyMax]
  */
-export function NegotiationTooltip({ locale = 'en', variant = 'hint' }) {
+export function NegotiationTooltip({
+  locale = 'en',
+  variant = 'hint',
+  sellerLikelyMin = 60,
+  sellerLikelyMax = 70,
+}) {
+  const rangeLabel = `$${sellerLikelyMin}–$${sellerLikelyMax}`
   if (variant === 'listing') {
     return (
       <div className="relative w-[66%] max-w-[248px] min-w-[168px]">
@@ -26,7 +34,10 @@ export function NegotiationTooltip({ locale = 'en', variant = 'hint' }) {
             <div className="flex w-full flex-col items-center text-balance">
               <p className="text-[13px] font-semibold leading-snug text-blue-900">가격 협상 가능</p>
               <p className="mt-1 text-[13px] leading-snug text-blue-800">
-                <span className="text-sm font-bold text-blue-900">$60 – $72</span> 사이로
+                <span className="text-sm font-bold text-blue-900">
+                  {`$${sellerLikelyMin} – $${sellerLikelyMax + 2}`}
+                </span>{' '}
+                사이로
               </p>
               <p className="mt-0.5 text-[13px] leading-snug text-blue-800">제안해 보세요</p>
             </div>
@@ -34,7 +45,9 @@ export function NegotiationTooltip({ locale = 'en', variant = 'hint' }) {
             <div className="flex w-full flex-col items-center text-balance">
               <p className="text-[13px] font-semibold leading-snug text-blue-900">Price is negotiable</p>
               <p className="mt-1 text-[13px] leading-snug text-blue-800">Try an offer between</p>
-              <p className="mt-0.5 text-sm font-bold leading-snug text-blue-900">$60 – $72</p>
+              <p className="mt-0.5 text-sm font-bold leading-snug text-blue-900">
+                {`$${sellerLikelyMin} – $${sellerLikelyMax + 2}`}
+              </p>
             </div>
           )}
         </div>
@@ -48,12 +61,12 @@ export function NegotiationTooltip({ locale = 'en', variant = 'hint' }) {
       {locale === 'ko' ? (
         <p className="text-[13px] leading-snug text-blue-800">
           판매자가{' '}
-          <span className="text-sm font-bold text-blue-900">$60–$70</span> 수락 가능성이 높아요
+          <span className="text-sm font-bold text-blue-900">{rangeLabel}</span> 수락 가능성이 높아요
         </p>
       ) : (
         <p className="text-[13px] leading-snug text-blue-800">
           Seller likely accepts{' '}
-          <span className="text-sm font-bold text-blue-900">$60–$70</span>
+          <span className="text-sm font-bold text-blue-900">{rangeLabel}</span>
         </p>
       )}
     </div>

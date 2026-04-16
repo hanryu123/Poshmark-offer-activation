@@ -1,6 +1,7 @@
 const SCREENS = [
   { id: 'product', label: 'Listing' },
-  { id: 'makeOffer', label: 'Offer' },
+  { id: 'makeOffer', label: 'Offer A' },
+  { id: 'makeOfferB', label: 'Offer B' },
   { id: 'shipping', label: 'Address' },
   { id: 'offerPayment', label: 'Pay setup' },
   { id: 'offerSubmit', label: 'Submit' },
