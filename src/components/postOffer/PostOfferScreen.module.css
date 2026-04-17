@@ -1,0 +1,20 @@
+/* Lock screen shell — centers the notification card */
+
+.notificationSlot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 24px 16px 32px;
+  box-sizing: border-box;
+}
+
+.notificationSlotInner {
+  width: 100%;
+  max-width: min(100%, 360px);
+  margin-inline: auto;
+}

@@ -7,6 +7,9 @@ import { OfferDetailsPaymentScreen } from './components/offerDetails/OfferDetail
 import { OfferDetailsSubmitScreen } from './components/offerFlow/OfferDetailsSubmitScreen.jsx'
 import { ProductListingContainer } from './components/offerFlow/ProductListingContainer.jsx'
 import { ShippingAddressScreen } from './components/shipping/ShippingAddressScreen.jsx'
+import { PhoneBezel } from './components/common/PhoneBezel.jsx'
+import { PostOfferScreen } from './components/postOffer/PostOfferScreen.jsx'
+import { SuggestedItemsScreen } from './components/postOffer/SuggestedItemsScreen.jsx'
 
 export default function App() {
   const [screen, setScreen] = useState('product')
@@ -25,6 +28,14 @@ export default function App() {
             <OfferDetailsPaymentScreen onBack={() => setScreen('product')} />
           )}
           {screen === 'offerSubmit' && <OfferDetailsSubmitScreen onBack={() => setScreen('product')} />}
+          {screen === 'postOffer' && (
+            <PhoneBezel className="w-full max-w-[393px]" contentClassName="bg-transparent">
+              <PostOfferScreen onNavigateToSuggested={() => setScreen('suggestedItems')} />
+            </PhoneBezel>
+          )}
+          {screen === 'suggestedItems' && (
+            <SuggestedItemsScreen onBack={() => setScreen('postOffer')} />
+          )}
         </div>
         <ScreenPicker value={screen} onChange={setScreen} />
       </div>

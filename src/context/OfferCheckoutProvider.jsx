@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { getListingOfferPresets } from '../components/offer/offerPresets.js'
+import { DEMO_LISTING } from '../data/demoListing.js'
 import { OfferCheckoutContext } from './offerCheckoutContext.js'
 
 const DEFAULT_OFFER_AMOUNT = getListingOfferPresets()[0].value
@@ -16,6 +17,7 @@ export function OfferCheckoutProvider({ children }) {
       offerAmount,
       setOfferAmount,
       resetOfferCheckout,
+      listing: DEMO_LISTING,
     }),
     [offerAmount, resetOfferCheckout],
   )
