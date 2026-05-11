@@ -19,7 +19,7 @@ export function NetChargedBlock({ offerAmount }) {
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
               <path d="M2 5.5L4.2 7.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            You save {formatUsd(savings)} vs. listing
+            You're saving {formatUsd(savings)} compared to the listing price
           </span>
         </div>
       )}
