@@ -1,12 +1,12 @@
 const SCREENS = [
   { id: 'product', label: 'Listing' },
-  { id: 'makeOffer', label: 'Offer A' },
-  { id: 'makeOfferB', label: 'Offer B' },
+  { id: 'makeOffer', label: 'Final Price' },
   { id: 'shipping', label: 'Address' },
   { id: 'offerPayment', label: 'Pay setup' },
   { id: 'offerSubmit', label: 'Submit' },
   { id: 'postOffer', label: 'Post offer' },
   { id: 'suggestedItems', label: 'Similar' },
+  { id: 'makeOfferB', label: 'Offer B' },
 ]
 
 export function ScreenPicker({ value, onChange }) {

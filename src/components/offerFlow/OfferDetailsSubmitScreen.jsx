@@ -1,16 +1,12 @@
-import { useState } from 'react'
 import { useOfferCheckout } from '../../context/useOfferCheckout.js'
 import { IMG } from '../../constants/assets.js'
 import { MobileShell } from '../common/MobileShell.jsx'
-import { Modal } from '../modal/Modal.jsx'
-import { SubmissionSuccessModal } from '../modal/SubmissionSuccessModal.jsx'
 import { PrimaryBlackButton } from '../ui/PrimaryBlackButton.jsx'
 import { OfferDetailsNavHeader } from '../offerDetails/OfferDetailsNavHeader.jsx'
 import { StatusBar } from '../common/StatusBar.jsx'
 import {
   computeOfferTotal,
   formatUsd,
-  LISTING_PRICE,
   MOCK_SHIPPING,
   MOCK_TAX,
 } from './offerFlowMoney.js'
@@ -21,11 +17,9 @@ import { PaymentShippingBlock } from './PaymentShippingBlock.jsx'
 import { SubmitOfferDisclaimer } from './SubmitOfferDisclaimer.jsx'
 
 export function OfferDetailsSubmitScreen({ onBack }) {
-  const [successOpen, setSuccessOpen] = useState(false)
   const { offerAmount } = useOfferCheckout()
 
   const lineTotal = computeOfferTotal(offerAmount)
-  const savingsVersusListing = Math.max(0, LISTING_PRICE - offerAmount)
 
   return (
     <MobileShell className="relative min-h-[100dvh] bg-white">
@@ -44,18 +38,10 @@ export function OfferDetailsSubmitScreen({ onBack }) {
         <div className="pt-6">
           <SubmitOfferDisclaimer />
           <div className="mt-3">
-            <PrimaryBlackButton onClick={() => setSuccessOpen(true)}>Submit Offer</PrimaryBlackButton>
+            <PrimaryBlackButton>Submit Offer</PrimaryBlackButton>
           </div>
         </div>
       </div>
-
-      <Modal open={successOpen} onClose={() => setSuccessOpen(false)}>
-        <SubmissionSuccessModal
-          savingsAmount={savingsVersusListing}
-          onBrowseSeller={() => setSuccessOpen(false)}
-          onClose={() => setSuccessOpen(false)}
-        />
-      </Modal>
     </MobileShell>
   )
 }
